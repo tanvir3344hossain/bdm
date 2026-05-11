@@ -1,616 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>My Mango | Sweetness of Nature</title>
-    <!-- Google Fonts & Font Awesome -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Royal Mango | Premium Quality Mangoes</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #fffef7;
-            color: #2c2b28;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F8FAFC;  /* Soft Gray Background */
+      color: #0F172A;       /* Dark Text Navy */
+      scroll-behavior: smooth;
+    }
 
-        /* Animations */
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* Container */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
-        @keyframes softGlow {
-            0% { text-shadow: 0 0 0px rgba(255,160,0,0); }
-            50% { text-shadow: 0 0 8px rgba(255,160,0,0.3); }
-            100% { text-shadow: 0 0 0px rgba(255,160,0,0); }
-        }
+    /* ========== NAVBAR ========== */
+    .navbar {
+      background: #FFFFFF;  /* Pure White */
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      border-bottom: 1px solid #E2E8F0;
+    }
 
-        .fade-up {
-            animation: fadeUp 0.8s ease forwards;
-        }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      max-width: 1350px;
+      margin: 0 auto;
+    }
 
-        section {
-            padding: 80px 24px;
-            max-width: 1280px;
-            margin: 0 auto;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
+    /* Logo with blue text */
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #2563EB;  /* Royal Blue */
+      letter-spacing: -0.5px;
+    }
+    .logo span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #64748B;
+      letter-spacing: normal;
+    }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* Desktop Menu */
+    .nav-menu {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
 
-        /* Hamburger & Nav */
-        .navbar {
-            background: #ffffffdd;
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            border-bottom: 1px solid #ffe2b5;
-        }
+    .nav-menu li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #0F172A;
+      transition: all 0.25s ease;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-        .nav-container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 24px;
-        }
+    .nav-menu li a i {
+      font-size: 0.9rem;
+      color: #2563EB;
+    }
 
-        .logo h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: linear-gradient(135deg, #f5a623, #e67e22);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            letter-spacing: -0.5px;
-        }
-        .logo span {
-            font-size: 1.2rem;
-        }
+    .nav-menu li a:hover {
+      color: #2563EB;  /* Blue hover effect */
+      transform: translateY(-2px);
+    }
 
-        /* hamburger icon */
-        .hamburger {
-            display: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: #e67e22;
-            transition: 0.2s;
-        }
+    /* Hamburger Button */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      gap: 5px;
+      padding: 5px;
+      z-index: 1100;
+    }
 
-        .nav-menu {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            flex-wrap: wrap;
-        }
+    .hamburger span {
+      width: 28px;
+      height: 2.5px;
+      background: #2563EB;
+      border-radius: 4px;
+      transition: 0.25s ease;
+    }
 
-        .nav-menu li a {
-            text-decoration: none;
-            font-weight: 600;
-            color: #4a3b28;
-            transition: 0.3s;
-            font-size: 1rem;
-            padding: 8px 0;
-            border-bottom: 2px solid transparent;
-        }
+    /* Mobile Menu */
+    @media (max-width: 900px) {
+      .hamburger {
+        display: flex;
+      }
+      .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 72px;
+        flex-direction: column;
+        background: #FFFFFF;
+        width: 75%;
+        max-width: 300px;
+        height: calc(100vh - 72px);
+        transition: 0.3s ease-in-out;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+        padding: 32px 24px;
+        gap: 24px;
+        align-items: flex-start;
+        z-index: 999;
+        border-right: 1px solid #E2E8F0;
+      }
+      .nav-menu.active {
+        left: 0;
+      }
+      .nav-menu li a {
+        font-size: 1.05rem;
+        gap: 12px;
+      }
+      .container {
+        padding: 0 20px;
+      }
+      .logo h1 {
+        font-size: 1.4rem;
+      }
+    }
 
-        .nav-menu li a:hover {
-            color: #e67e22;
-            border-bottom-color: #f5a623;
-        }
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, #E0F2FE 0%, #FFFFFF 100%);
+      border-radius: 32px;
+      margin: 32px 0 40px;
+      padding: 48px 40px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+    .hero-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 40px;
+    }
+    .hero-text {
+      flex: 1.2;
+    }
+    .hero-text h2 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #2563EB;
+      margin-bottom: 16px;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      color: #334155;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .hero-badge {
+      display: inline-flex;
+      background: #2563EB;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      gap: 8px;
+    }
+    .hero-img {
+      flex: 1;
+      text-align: center;
+    }
+    .hero-img img {
+      max-width: 100%;
+      width: 320px;
+      border-radius: 40px;
+      box-shadow: 0 25px 35px -12px rgba(37,99,235,0.25);
+      border: 4px solid white;
+    }
+    @media (max-width: 700px) {
+      .hero { padding: 32px 24px; }
+      .hero-text h2 { font-size: 2rem; }
+    }
 
-        /* WhatsApp floating button */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 28px;
-            right: 28px;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 32px;
-            line-height: 60px;
-            box-shadow: 0 8px 20px rgba(37,211,102,0.4);
-            z-index: 1100;
-            transition: 0.3s;
-            animation: softGlow 2s infinite;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            background-color: #20b859;
-        }
+    /* section title */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 56px 0 28px 0;
+      border-left: 6px solid #2563EB;
+      padding-left: 20px;
+      color: #0F172A;
+    }
+    .section-title i {
+      color: #2563EB;
+      margin-right: 12px;
+    }
 
-        /* Hero */
-        .hero {
-            text-align: center;
-            background: linear-gradient(145deg, #fff5e6, #fff0e0);
-            border-radius: 48px;
-            margin: 30px auto 20px;
-            padding: 60px 24px;
-        }
-        .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #d45a1f;
-        }
-        .hero p {
-            font-size: 1.2rem;
-            color: #7f5e3a;
-            margin-top: 16px;
-        }
+    /* Mango Varieties Grid - each card has price and whatsapp button */
+    .mango-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 32px;
+      margin: 24px 0 20px;
+    }
+    .mango-card {
+      background: #FFFFFF;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08);
+      border: 1px solid #E2E8F0;
+    }
+    .mango-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 32px -14px rgba(37,99,235,0.15);
+      border-color: #BFDBFE;
+    }
+    .mango-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #E0F2FE;
+    }
+    .card-content {
+      padding: 20px 20px 24px;
+    }
+    .card-content h3 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #0F172A;
+      margin-bottom: 6px;
+    }
+    .variety {
+      color: #2563EB;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .price {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: #2563EB;
+      margin: 12px 0 6px;
+    }
+    .price small {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #64748B;
+    }
+    /* whatsapp button on each mango card */
+    .order-wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.2s;
+      margin-top: 14px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      justify-content: center;
+    }
+    .order-wa-btn:hover {
+      background: #128C7E;
+      transform: scale(0.98);
+    }
+    .order-wa-btn i {
+      font-size: 1.1rem;
+    }
 
-        /* Varieties Grid (Editable images) */
-        .varieties-grid, .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        .mango-card {
-            background: white;
-            border-radius: 32px;
-            overflow: hidden;
-            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
-            text-align: center;
-            padding-bottom: 20px;
-        }
-        .mango-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.12);
-        }
-        .mango-card img {
-            width: 100%;
-            height: 220px;
-            object-fit: cover;
-            transition: 0.4s;
-        }
-        .mango-card h3 {
-            margin: 16px 0 8px;
-            color: #c25d1a;
-        }
-        .mango-card p {
-            padding: 0 15px;
-            color: #6b4c2c;
-            font-size: 0.9rem;
-        }
+    /* Gallery Section (grid) */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 20px 0 30px;
+    }
+    .gallery-item {
+      background: #FFFFFF;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.05);
+      transition: 0.2s;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.02);
+    }
+    .gallery-item p {
+      padding: 12px;
+      text-align: center;
+      font-weight: 500;
+      background: #FFFFFF;
+    }
 
-        /* Gallery images placeholder */
-        .gallery-img {
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
-        }
-        .gallery-img img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: 0.3s;
-        }
-        .gallery-img img:hover {
-            transform: scale(1.03);
-        }
+    /* About, Reviews, Delivery, FAQ, Contact sections styling */
+    .info-card {
+      background: #FFFFFF;
+      border-radius: 32px;
+      padding: 32px 28px;
+      margin: 32px 0;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+      border: 1px solid #E2E8F0;
+    }
+    .review-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    .review-item {
+      background: #F8FAFC;
+      padding: 20px;
+      border-radius: 24px;
+      flex: 1;
+      min-width: 220px;
+    }
+    .faq-item {
+      border-bottom: 1px solid #E2E8F0;
+      padding: 16px 0;
+    }
+    .faq-question {
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      color: #0F172A;
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: 0.3s;
+      color: #475569;
+      padding-left: 12px;
+    }
+    .faq-answer.show {
+      max-height: 200px;
+      margin-top: 12px;
+    }
+    .contact-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-weight: 500;
+    }
+    .contact-item i {
+      font-size: 1.5rem;
+      color: #2563EB;
+    }
 
-        /* Reviews & Customer review section (combined) */
-        .reviews-container, .customer-review-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            margin-top: 30px;
-            justify-content: center;
-        }
-        .review-card {
-            background: #ffffffdb;
-            backdrop-filter: blur(2px);
-            border-radius: 32px;
-            padding: 24px;
-            flex: 1 1 280px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            border: 1px solid #ffefcf;
-            transition: 0.2s;
-        }
-        .review-card i {
-            color: #f4b942;
-            font-size: 1.4rem;
-        }
-        .stars {
-            color: #f5b042;
-            margin: 12px 0;
-        }
-        .customer-name {
-            font-weight: 700;
-            margin-top: 16px;
-            color: #b3581c;
-        }
+    /* Footer */
+    .footer {
+      background: #FFFFFF;
+      border-top: 1px solid #E2E8F0;
+      padding: 40px 0 24px;
+      margin-top: 60px;
+    }
+    .footer-content {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    .footer-logo h3 {
+      color: #2563EB;
+      font-size: 1.6rem;
+    }
+    .copyright {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.8rem;
+      color: #64748B;
+    }
 
-        /* Delivery & FAQ */
-        .delivery-box, .faq-item {
-            background: #fff9ef;
-            border-radius: 28px;
-            padding: 24px;
-            margin-top: 20px;
-            transition: 0.2s;
-        }
-        .faq-question {
-            font-weight: 700;
-            font-size: 1.15rem;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .faq-answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            color: #5e4a33;
-            margin-top: 8px;
-        }
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            margin-top: 12px;
-        }
-
-        /* Contact form */
-        .contact-form {
-            background: #ffffffea;
-            border-radius: 36px;
-            padding: 32px;
-            margin-top: 26px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .contact-form input, .contact-form textarea {
-            padding: 14px 18px;
-            border: 1px solid #ffddb0;
-            border-radius: 48px;
-            font-family: inherit;
-            background: #fffcf5;
-        }
-        .contact-form button {
-            background: #f39c12;
-            border: none;
-            padding: 14px;
-            border-radius: 40px;
-            font-weight: bold;
-            color: white;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .contact-form button:hover {
-            background: #e67e22;
-            transform: scale(0.97);
-        }
-        footer {
-            text-align: center;
-            padding: 32px;
-            background: #fff1e0;
-            color: #a5692e;
-            margin-top: 40px;
-        }
-
-        @media (max-width: 880px) {
-            .hamburger {
-                display: block;
-            }
-            .nav-menu {
-                position: fixed;
-                left: -100%;
-                top: 75px;
-                flex-direction: column;
-                background: #fffef5;
-                width: 75%;
-                height: calc(100vh - 75px);
-                text-align: center;
-                transition: 0.3s;
-                box-shadow: 2px 0 20px rgba(0,0,0,0.1);
-                gap: 1.2rem;
-                padding: 40px 0;
-                backdrop-filter: blur(20px);
-                z-index: 999;
-            }
-            .nav-menu.active {
-                left: 0;
-            }
-            .nav-menu li a {
-                font-size: 1.2rem;
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            section {
-                padding: 60px 20px;
-            }
-        }
-        button, .hamburger {
-            background: none;
-        }
-        .faq-question i {
-            transition: transform 0.2s;
-        }
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-        .section-title {
-            font-size: 2.2rem;
-            font-weight: 600;
-            border-left: 6px solid #f39c12;
-            padding-left: 20px;
-            margin-bottom: 28px;
-        }
-    </style>
+    /* floating WhatsApp button (global) */
+    .float-wa {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #25D366;
+      color: white;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 8px 20px rgba(37,211,102,0.35);
+      transition: 0.2s;
+      z-index: 1050;
+      text-decoration: none;
+    }
+    .float-wa:hover {
+      transform: scale(1.07);
+      background: #128C7E;
+    }
+    hr {
+      margin: 20px 0;
+      border-color: #E2E8F0;
+    }
+    @media (max-width: 550px) {
+      .float-wa { width: 50px; height: 50px; font-size: 28px; bottom: 20px; right: 20px; }
+      .section-title { font-size: 1.7rem; }
+    }
+    button, a { cursor: pointer; }
+    .blue-link { color: #2563EB; }
+  </style>
 </head>
 <body>
 
+<!-- Navbar with Hamburger Menu -->
 <div class="navbar">
-    <div class="nav-container">
-        <div class="logo">
-            <h2>🥭 My Mango <span>| pure bliss</span></h2>
-        </div>
-        <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#varieties">Mango Varieties</a></li>
-            <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#reviews">Reviews</a></li>
-            <li><a href="#delivery">Delivery Info</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+  <div class="nav-container">
+    <div class="logo">
+      <h1>Royal Mango <span>— King of Fruits</span></h1>
     </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="#mango-varieties"><i class="fas fa-apple-alt"></i> Mango Varieties</a></li>
+      <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
+      <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+      <li><a href="#reviews"><i class="fas fa-star"></i> Reviews</a></li>
+      <li><a href="#delivery"><i class="fas fa-truck"></i> Delivery Info</a></li>
+      <li><a href="#faq"><i class="fas fa-question-circle"></i> FAQ</a></li>
+      <li><a href="#contact"><i class="fas fa-phone-alt"></i> Contact</a></li>
+    </ul>
+  </div>
 </div>
 
-<!-- WhatsApp Button -->
-<a href="https://wa.me/1234567890?text=Hello%20I%20want%20to%20order%20fresh%20mangoes!" class="whatsapp-float" target="_blank" rel="noopener">
-    <i class="fab fa-whatsapp"></i>
-</a>
+<main class="container">
+  <!-- Home Section -->
+  <section id="home">
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-text">
+          <h2>Royal Mango<br>Excellence Since 1995</h2>
+          <p>Farm-fresh, sun-ripened organic mangoes directly from our orchards. Taste the royalty with every bite.</p>
+          <div class="hero-badge"><i class="fab fa-whatsapp"></i> Order via WhatsApp: 01763685251</div>
+        </div>
+        <div class="hero-img">
+          <img src="https://placehold.co/600x500/FFDEB3/D97706?text=Royal+Mango+🍑" alt="Royal Mango Hero">
+        </div>
+      </div>
+    </div>
+  </section>
 
-<main>
-    <!-- Home Section -->
-    <section id="home">
-        <div class="hero">
-            <h1>Nature’s Golden Sweetness 🥭</h1>
-            <p>Farm-fresh, organic mangoes delivered to your doorstep. Taste the sunshine!</p>
-            <div style="margin-top: 30px;"><i class="fas fa-seedling" style="color:#f39c12;"></i> 100% Natural | <i class="fas fa-truck"></i> Fast Delivery</div>
-        </div>
-    </section>
+  <!-- Mango Varieties Section (with price & WhatsApp button each) -->
+  <section id="mango-varieties">
+    <div class="section-title"><i class="fas fa-seedling"></i> Our Royal Mango Collection</div>
+    <div class="mango-grid" id="mangoGrid"></div>
+  </section>
 
-    <!-- Mango Varieties (image ready: you can replace src later) -->
-    <section id="varieties">
-        <h2 class="section-title">🍑 Exotic Mango Varieties</h2>
-        <div class="varieties-grid" id="varietiesGrid">
-            <!-- Variety cards - images placeholder (you can replace later) -->
-            <div class="mango-card"><img src="https://placehold.co/600x400/FFE5C8/CC8844?text=Alphonso" alt="Alphonso"><h3>Alphonso</h3><p>King of mangoes, rich creamy texture.</p></div>
-            <div class="mango-card"><img src="https://placehold.co/600x400/FEDBA0/BC6F25?text=Dasheri" alt="Dasheri"><h3>Dasheri</h3><p>Sweet & aromatic, fiberless flesh.</p></div>
-            <div class="mango-card"><img src="https://placehold.co/600x400/FFD966/A5581C?text=Kesar" alt="Kesar"><h3>Kesar</h3><p>Bright saffron colored, heavenly sweet.</p></div>
-            <div class="mango-card"><img src="https://placehold.co/600x400/F8E0B0/C2651A?text=Langra" alt="Langra"><h3>Langra</h3><p>Tangy & juicy, classic summer delight.</p></div>
-            <div class="mango-card"><img src="https://placehold.co/600x400/FCE6B4/D9822B?text=Himsagar" alt="Himsagar"><h3>Himsagar</h3><p>Soft pulp, exceptional sweetness.</p></div>
-            <div class="mango-card"><img src="https://placehold.co/600x400/FFE2AB/B85C1A?text=Totapuri" alt="Totapuri"><h3>Totapuri</h3><p>Perfect for pickles & chutneys.</p></div>
-        </div>
-        <p style="text-align:center; margin-top:24px; font-style:italic;"><i class="fas fa-upload"></i> You can replace any image later by changing the 'src' attribute in the code! 🎨</p>
-    </section>
+  <!-- Gallery Section -->
+  <section id="gallery">
+    <div class="section-title"><i class="fas fa-camera"></i> Mango Gallery</div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery">
-        <h2 class="section-title">📸 Mango Gallery</h2>
-        <div class="gallery-grid">
-            <div class="gallery-img"><img src="https://placehold.co/600x400/FCE4B6/D97328?text=Mango+Orchard" alt="Orchard"></div>
-            <div class="gallery-img"><img src="https://placehold.co/600x400/FFDCA8/E67E22?text=Ripe+Mangoes" alt="Ripe"></div>
-            <div class="gallery-img"><img src="https://placehold.co/600x400/FFE0B5/CC6F2C?text=Mango+Platter" alt="Platter"></div>
-            <div class="gallery-img"><img src="https://placehold.co/600x400/F6D5A3/BD6520?text=Mango+Tree" alt="Tree"></div>
-        </div>
-    </section>
+  <!-- About Section -->
+  <section id="about">
+    <div class="info-card">
+      <h3 style="font-size: 1.8rem; margin-bottom: 16px; color:#2563EB;"><i class="fas fa-leaf"></i> About Royal Mango</h3>
+      <p>Welcome to <strong>Royal Mango</strong> – where we bring the finest, chemical-free mangoes from our family-owned farms to your doorstep. We specialize in 12+ indigenous and hybrid mango varieties, including Alphonso, Langra, Himsagar, Fazli, and more. Our mission is to deliver sweetness, freshness, and authenticity with every order.</p>
+      <p style="margin-top: 12px;">🌱 Handpicked with care 🌱 100% organic 🌱 Direct from orchard to you. Join thousands of happy customers who experienced the true taste of royalty.</p>
+    </div>
+  </section>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2 class="section-title">🌿 About My Mango</h2>
-        <div style="background: #FFF3E0; border-radius: 32px; padding: 32px;">
-            <p style="font-size:1.1rem; line-height:1.5">My Mango began with a passion for bringing the finest, chemical-free mangoes from family farms to your table. We handpick each fruit at peak ripeness, ensuring every bite is juicy, fragrant, and reminds you of sunny orchards. Our commitment to sustainable farming and farmer partnerships makes us your most trusted mango haven. Taste the tradition!</p>
-        </div>
-    </section>
+  <!-- Reviews Section -->
+  <section id="reviews">
+    <div class="section-title"><i class="fas fa-comments"></i> Customer Reviews</div>
+    <div class="review-grid" id="reviewsContainer"></div>
+  </section>
 
-    <!-- Reviews + Customer Review Combined -->
-    <section id="reviews">
-        <h2 class="section-title">⭐ Customer Reviews & Ratings</h2>
-        <div class="reviews-container" id="reviewsContainer">
-            <div class="review-card"><i class="fas fa-user-circle"></i><div class="stars">★★★★★</div><p>"Best mangoes I've ever had! Super sweet and fresh. Delivery was quick!"</p><div class="customer-name">— Riya S.</div></div>
-            <div class="review-card"><i class="fas fa-user-circle"></i><div class="stars">★★★★☆</div><p>"Alphonso variety is pure gold. Will order again and again!"</p><div class="customer-name">— Vikram P.</div></div>
-            <div class="review-card"><i class="fas fa-user-circle"></i><div class="stars">★★★★★</div><p>"Amazing packaging and fruit quality. Even kids loved it."</p><div class="customer-name">— Meera K.</div></div>
-        </div>
-        <!-- Additional customer review section input (user friendly) -->
-        <div style="margin-top: 36px; background:#fff7ed; border-radius: 36px; padding: 20px;">
-            <h3>Share Your Mango Story 🥭</h3>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
-                <input type="text" id="reviewName" placeholder="Your name" style="flex:1; padding:12px; border-radius:40px; border:1px solid #fcd48d;">
-                <textarea id="reviewText" rows="2" placeholder="Write your review..." style="flex:2; border-radius:28px; border:1px solid #fcd48d; padding:12px;"></textarea>
-                <div><select id="reviewStars" style="padding:12px; border-radius:40px;"><option value="5">★★★★★</option><option value="4">★★★★☆</option><option value="3">★★★☆☆</option></select></div>
-                <button id="submitReviewBtn" style="background:#f39c12; border:none; padding:0 26px; border-radius:40px; color:white; font-weight:bold; cursor:pointer;">+ Add Review</button>
-            </div>
-            <div id="newReviewContainer" style="margin-top: 20px; display:flex; flex-wrap:wrap; gap:15px;"></div>
-        </div>
-    </section>
+  <!-- Delivery Info Section -->
+  <section id="delivery">
+    <div class="info-card">
+      <h3 style="font-size: 1.6rem; margin-bottom: 20px;"><i class="fas fa-shipping-fast"></i> Delivery Information</h3>
+      <p>🚚 We deliver across all major cities in Bangladesh.<br>📦 Free delivery on orders over BDT 2000.<br>⏱️ Delivery time: 24-48 hours inside Dhaka, 2-4 days outside Dhaka.<br>❄️ Cold storage packaging ensures freshness.<br>📞 Track your order via WhatsApp: <strong class="blue-link">01763685251</strong></p>
+    </div>
+  </section>
 
-    <!-- Delivery Info -->
-    <section id="delivery">
-        <h2 class="section-title">🚚 Delivery Information</h2>
-        <div class="delivery-box">
-            <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> Free delivery on orders over $40</p>
-            <p><i class="fas fa-clock"></i> Same-day dispatch for orders before 12 PM</p>
-            <p><i class="fas fa-map-marker-alt"></i> We deliver across all major cities – express mango shipping!</p>
-            <p><i class="fas fa-temperature-low"></i> Cold chain packaging to preserve freshness.</p>
-        </div>
-    </section>
+  <!-- FAQ Section -->
+  <section id="faq">
+    <div class="section-title"><i class="fas fa-question"></i> Frequently Asked Questions</div>
+    <div class="info-card" id="faqContainer"></div>
+  </section>
 
-    <!-- FAQ Section -->
-    <section id="faq">
-        <h2 class="section-title">❓ Frequently Asked Questions</h2>
-        <div id="faqContainer">
-            <div class="faq-item"><div class="faq-question">How do you ensure mango freshness? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">We harvest at the right maturity and use temperature-controlled transit to deliver farm-fresh mangoes.</div></div>
-            <div class="faq-item"><div class="faq-question">Can I return mangoes? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">If any quality issues, we provide refund or replacement within 24 hrs of delivery.</div></div>
-            <div class="faq-item"><div class="faq-question">Do you ship nationwide? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes! We ship to all states with guaranteed 2-3 day delivery.</div></div>
-            <div class="faq-item"><div class="faq-question">Are these organic? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Most of our varieties are grown without synthetic pesticides — naturally delicious!</div></div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2 class="section-title">📞 Contact Us</h2>
-        <div class="contact-form">
-            <input type="text" id="contactName" placeholder="Your Name">
-            <input type="email" id="contactEmail" placeholder="Email Address">
-            <textarea rows="3" id="contactMsg" placeholder="Ask about mangoes, delivery, or wholesale..."></textarea>
-            <button id="sendMsgBtn">Send Message <i class="fas fa-paper-plane"></i></button>
-        </div>
-        <div style="margin-top: 20px; text-align:center;"><i class="fas fa-phone-alt"></i> +1 800 MANGO-LUV &nbsp;|&nbsp; <i class="fas fa-envelope"></i> hello@mymango.com</div>
-    </section>
+  <!-- Contact Section -->
+  <section id="contact">
+    <div class="section-title"><i class="fas fa-address-card"></i> Contact Us</div>
+    <div class="info-card">
+      <div class="contact-flex">
+        <div class="contact-item"><i class="fas fa-phone-alt"></i> <span>+880 1763 685251</span></div>
+        <div class="contact-item"><i class="fab fa-whatsapp"></i> <span>WhatsApp: 01763685251</span></div>
+        <div class="contact-item"><i class="fas fa-envelope"></i> <span>hello@royalmango.com</span></div>
+        <div class="contact-item"><i class="fas fa-map-marker-alt"></i> <span>Mango Valley, Rajshahi, Bangladesh</span></div>
+      </div>
+      <hr>
+      <p style="text-align: center;">📢 For bulk orders & corporate gifting, connect on WhatsApp.</p>
+    </div>
+  </section>
 </main>
-<footer>
-    <p>© 2025 My Mango — Sun-ripened happiness delivered. 🥭</p>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <h3>Royal Mango</h3>
+        <p>Premium quality, farm-fresh mangoes</p>
+      </div>
+      <div>
+        <p><i class="fab fa-whatsapp"></i> Order: 01763685251</p>
+        <p><i class="far fa-clock"></i> Mon-Sat: 9AM - 8PM</p>
+      </div>
+    </div>
+    <div class="copyright">
+      © 2025 Royal Mango — Taste the Royalty. All rights reserved.
+    </div>
+  </div>
 </footer>
 
+<!-- Floating WhatsApp Button (global) -->
+<a href="https://wa.me/8801763685251?text=Hello%20Royal%20Mango%2C%20I%20want%20to%20order%20fresh%20mangoes%20%F0%9F%A5%AD" class="float-wa" target="_blank" rel="noopener">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
 <script>
-    // Intersection Observer for scroll animations
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-    sections.forEach(section => observer.observe(section));
+  // Mango data: each with name, variety, price (BDT), image
+  const mangoes = [
+    { name: "Alphonso", variety: "King of Mangoes", price: 12, unit: "kg", img: "https://placehold.co/600x400/FDE8C8/E07A2C?text=Alphonso" },
+    { name: "Himsagar", variety: "Aromatic & Sweet", price: 10, unit: "kg", img: "https://placehold.co/600x400/FDE0B8/CC6F20?text=Himsagar" },
+    { name: "Langra", variety: "Fibreless & Juicy", price: 9, unit: "kg", img: "https://placehold.co/600x400/FCD9AA/C96B1A?text=Langra" },
+    { name: "Fazli", variety: "Giant sized delight", price: 11, unit: "kg", img: "https://placehold.co/600x400/FDD5A2/D57A28?text=Fazli" },
+    { name: "Amrapali", variety: "Hybrid sweetness", price: 10, unit: "kg", img: "https://placehold.co/600x400/FDD19B/C5681E?text=Amrapali" },
+    { name: "Kesar", variety: "Saffron Aroma", price: 13, unit: "kg", img: "https://placehold.co/600x400/FDCE95/C96F22?text=Kesar" },
+    { name: "Chaunsa", variety: "Silky Texture", price: 14, unit: "kg", img: "https://placehold.co/600x400/FCDBAF/E67E22?text=Chaunsa" },
+    { name: "Sindhri", variety: "Pakistani Pride", price: 14, unit: "kg", img: "https://placehold.co/600x400/FAD6A4/E17A28?text=Sindhri" },
+    { name: "Totapuri", variety: "Tangy Crunch", price: 7, unit: "kg", img: "https://placehold.co/600x400/F8CB90/C5611A?text=Totapuri" },
+    { name: "Mallika", variety: "Honey Flavor", price: 11, unit: "kg", img: "https://placehold.co/600x400/FBD7A8/E67E22?text=Mallika" },
+    { name: "Bombay Green", variety: "Early Summer", price: 9, unit: "kg", img: "https://placehold.co/600x400/F5C58D/B85812?text=Bombay+Green" },
+    { name: "Neelum", variety: "Evergreen Classic", price: 10, unit: "kg", img: "https://placehold.co/600x400/FDDAAE/CF7328?text=Neelum" }
+  ];
 
-    // HAMBURGER MENU
-    const hamburger = document.getElementById('hamburgerBtn');
-    const navMenu = document.getElementById('navMenu');
+  // Render Mango Cards with WhatsApp order button each (price + order)
+  const mangoGrid = document.getElementById('mangoGrid');
+  function renderMangoes() {
+    mangoGrid.innerHTML = '';
+    mangoes.forEach(m => {
+      const card = document.createElement('div');
+      card.className = 'mango-card';
+      card.innerHTML = `
+        <img class="mango-img" src="${m.img}" alt="${m.name}" loading="lazy">
+        <div class="card-content">
+          <h3>${m.name}</h3>
+          <div class="variety"><i class="fas fa-tag"></i> ${m.variety}</div>
+          <div class="price">BDT ${m.price} <small>/ ${m.unit}</small></div>
+          <a href="https://wa.me/8801763685251?text=Hello%20Royal%20Mango%2C%20I%20want%20to%20order%20${encodeURIComponent(m.name)}%20mango%20(${m.price}%20BDT%20per%20kg)" 
+             class="order-wa-btn" target="_blank">
+            <i class="fab fa-whatsapp"></i> Order via WhatsApp
+          </a>
+        </div>
+      `;
+      mangoGrid.appendChild(card);
+    });
+  }
+  renderMangoes();
+
+  // Gallery images (placeholder)
+  const galleryImages = [
+    "https://placehold.co/600x400/FFDFB3/C96A1E?text=Mango+Orchard", "https://placehold.co/600x400/FAD6A8/E17028?text=Fresh+Harvest", 
+    "https://placehold.co/600x400/FFE2C2/CC7022?text=Alphonso+Cuts", "https://placehold.co/600x400/FCE0B6/D47426?text=Mango+Trees",
+    "https://placehold.co/600x400/FDDCAE/E27E2A?text=Organic+Farm", "https://placehold.co/600x400/FEE5C8/D2681C?text=Royal+Packaging"
+  ];
+  const galleryGrid = document.getElementById('galleryGrid');
+  galleryImages.forEach(src => {
+    const item = document.createElement('div');
+    item.className = 'gallery-item';
+    item.innerHTML = `<img src="${src}" alt="gallery"><p><i class="fas fa-camera"></i> Royal Mango</p>`;
+    galleryGrid.appendChild(item);
+  });
+
+  // Reviews static data
+  const reviews = [
+    { name: "Rashed Karim", text: "Best mangoes I've ever tasted! Juicy and sweet. WhatsApp order was super smooth.", rating: "⭐⭐⭐⭐⭐" },
+    { name: "Shamim Akhter", text: "Royal Mango delivered fresh alphonso. Packing was premium. Highly recommended.", rating: "⭐⭐⭐⭐⭐" },
+    { name: "Tanvir Hossain", text: "Authentic taste, loved the Fazli variety. Fast delivery, will order again.", rating: "⭐⭐⭐⭐⭐" }
+  ];
+  const reviewsDiv = document.getElementById('reviewsContainer');
+  reviews.forEach(r => {
+    const rev = document.createElement('div');
+    rev.className = 'review-item';
+    rev.innerHTML = `<i class="fas fa-user-circle" style="font-size:2rem; color:#2563EB;"></i><p><strong>${r.name}</strong><br>${r.rating}<br>${r.text}</p>`;
+    reviewsDiv.appendChild(rev);
+  });
+
+  // FAQ Data with toggle
+  const faqData = [
+    { q: "How to place an order?", a: "Simply click 'Order via WhatsApp' on any mango card or use the floating WhatsApp button. Send us your address & quantity." },
+    { q: "Do you deliver outside Dhaka?", a: "Yes! We deliver nationwide. Delivery charges may vary based on location." },
+    { q: "What is the payment method?", a: "Cash on Delivery (COD) and bKash/Nagad available." },
+    { q: "Are mangoes organic?", a: "Yes, our mangoes are naturally grown without harmful chemicals." }
+  ];
+  const faqContainer = document.getElementById('faqContainer');
+  faqContainer.innerHTML = '';
+  faqData.forEach((item, idx) => {
+    const faqDiv = document.createElement('div');
+    faqDiv.className = 'faq-item';
+    faqDiv.innerHTML = `
+      <div class="faq-question" data-idx="${idx}">
+        <span>❓ ${item.q}</span> <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer" id="faqAns${idx}">${item.a}</div>
+    `;
+    faqContainer.appendChild(faqDiv);
+  });
+
+  // FAQ toggle event listeners
+  document.querySelectorAll('.faq-question').forEach((q, index) => {
+    q.addEventListener('click', () => {
+      const ansDiv = document.getElementById(`faqAns${index}`);
+      ansDiv.classList.toggle('show');
+      const icon = q.querySelector('i');
+      if (ansDiv.classList.contains('show')) icon.className = 'fas fa-chevron-up';
+      else icon.className = 'fas fa-chevron-down';
+    });
+  });
+
+  // Hamburger menu logic + close on link
+  const hamburger = document.getElementById('hamburgerBtn');
+  const navMenu = document.getElementById('navMenu');
+  if (hamburger && navMenu) {
     hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
-        // change icon
-        const icon = hamburger.querySelector('i');
-        if (navMenu.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+      navMenu.classList.toggle('active');
+      const spans = hamburger.querySelectorAll('span');
+      if (navMenu.classList.contains('active')) {
+        spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        spans[1].style.opacity = '0';
+        spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        spans[0].style.transform = 'none';
+        spans[1].style.opacity = '1';
+        spans[2].style.transform = 'none';
+      }
+    });
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        if (hamburger) {
+          const spans = hamburger.querySelectorAll('span');
+          spans[0].style.transform = 'none';
+          spans[1].style.opacity = '1';
+          spans[2].style.transform = 'none';
         }
+      });
     });
-    // Close menu when clicking a link
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            const icon = hamburger.querySelector('i');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        });
-    });
+  }
 
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-        const questionDiv = item.querySelector('.faq-question');
-        questionDiv.addEventListener('click', () => {
-            item.classList.toggle('active');
-        });
+  // Smooth anchor scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === "#" || targetId === "") return;
+      const target = document.querySelector(targetId);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
-
-    // Add new customer review dynamically
-    const submitReviewBtn = document.getElementById('submitReviewBtn');
-    const newReviewContainer = document.getElementById('newReviewContainer');
-    submitReviewBtn.addEventListener('click', () => {
-        const nameInput = document.getElementById('reviewName');
-        const reviewTextarea = document.getElementById('reviewText');
-        const starsSelect = document.getElementById('reviewStars');
-        let name = nameInput.value.trim();
-        const reviewMsg = reviewTextarea.value.trim();
-        let starRating = starsSelect.value;
-        if (!reviewMsg) {
-            alert("Please write your mango experience!");
-            return;
-        }
-        if (name === "") name = "Mango Lover";
-        let starDisplay = "";
-        if (starRating === "5") starDisplay = "★★★★★";
-        else if (starRating === "4") starDisplay = "★★★★☆";
-        else starDisplay = "★★★☆☆";
-        const newCard = document.createElement('div');
-        newCard.classList.add('review-card');
-        newCard.innerHTML = `<i class="fas fa-user-check"></i><div class="stars">${starDisplay}</div><p>"${escapeHtml(reviewMsg)}"</p><div class="customer-name">— ${escapeHtml(name)}</div>`;
-        newReviewContainer.prepend(newCard);
-        // clear inputs
-        nameInput.value = "";
-        reviewTextarea.value = "";
-        starsSelect.value = "5";
-        // optional smooth scroll to reviews
-        document.getElementById('reviews').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
-
-    // Contact form simulation
-    const sendBtn = document.getElementById('sendMsgBtn');
-    sendBtn.addEventListener('click', () => {
-        const nameC = document.getElementById('contactName').value;
-        const emailC = document.getElementById('contactEmail').value;
-        const msgC = document.getElementById('contactMsg').value;
-        if (!nameC || !emailC || !msgC) {
-            alert("Please fill all contact fields ☀️");
-            return;
-        }
-        alert(`Thanks ${nameC}! Our mango team will reply within 24 hours. Stay sweet! 🥭`);
-        document.getElementById('contactName').value = '';
-        document.getElementById('contactEmail').value = '';
-        document.getElementById('contactMsg').value = '';
-    });
-
-    // Helper to escape HTML
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
-            return c;
-        });
-    }
-
-    // Manually trigger visible for sections already visible on load
-    window.addEventListener('load', () => {
-        sections.forEach(section => {
-            const rect = section.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
-                section.classList.add('visible');
-            }
-        });
-    });
+  });
 </script>
 </body>
 </html>
