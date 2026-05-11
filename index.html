@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>My Mango | Sweetness of Nature</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fffef7;
+            color: #2c2b28;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes softGlow {
+            0% { text-shadow: 0 0 0px rgba(255,160,0,0); }
+            50% { text-shadow: 0 0 8px rgba(255,160,0,0.3); }
+            100% { text-shadow: 0 0 0px rgba(255,160,0,0); }
+        }
+
+        .fade-up {
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        section {
+            padding: 80px 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hamburger & Nav */
+        .navbar {
+            background: #ffffffdd;
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border-bottom: 1px solid #ffe2b5;
+        }
+
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 24px;
+        }
+
+        .logo h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f5a623, #e67e22);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .logo span {
+            font-size: 1.2rem;
+        }
+
+        /* hamburger icon */
+        .hamburger {
+            display: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: #e67e22;
+            transition: 0.2s;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-menu li a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #4a3b28;
+            transition: 0.3s;
+            font-size: 1rem;
+            padding: 8px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-menu li a:hover {
+            color: #e67e22;
+            border-bottom-color: #f5a623;
+        }
+
+        /* WhatsApp floating button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 32px;
+            line-height: 60px;
+            box-shadow: 0 8px 20px rgba(37,211,102,0.4);
+            z-index: 1100;
+            transition: 0.3s;
+            animation: softGlow 2s infinite;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            background-color: #20b859;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            background: linear-gradient(145deg, #fff5e6, #fff0e0);
+            border-radius: 48px;
+            margin: 30px auto 20px;
+            padding: 60px 24px;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #d45a1f;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #7f5e3a;
+            margin-top: 16px;
+        }
+
+        /* Varieties Grid (Editable images) */
+        .varieties-grid, .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .mango-card {
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+            padding-bottom: 20px;
+        }
+        .mango-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.12);
+        }
+        .mango-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+        .mango-card h3 {
+            margin: 16px 0 8px;
+            color: #c25d1a;
+        }
+        .mango-card p {
+            padding: 0 15px;
+            color: #6b4c2c;
+            font-size: 0.9rem;
+        }
+
+        /* Gallery images placeholder */
+        .gallery-img {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+        }
+        .gallery-img img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: 0.3s;
+        }
+        .gallery-img img:hover {
+            transform: scale(1.03);
+        }
+
+        /* Reviews & Customer review section (combined) */
+        .reviews-container, .customer-review-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        .review-card {
+            background: #ffffffdb;
+            backdrop-filter: blur(2px);
+            border-radius: 32px;
+            padding: 24px;
+            flex: 1 1 280px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border: 1px solid #ffefcf;
+            transition: 0.2s;
+        }
+        .review-card i {
+            color: #f4b942;
+            font-size: 1.4rem;
+        }
+        .stars {
+            color: #f5b042;
+            margin: 12px 0;
+        }
+        .customer-name {
+            font-weight: 700;
+            margin-top: 16px;
+            color: #b3581c;
+        }
+
+        /* Delivery & FAQ */
+        .delivery-box, .faq-item {
+            background: #fff9ef;
+            border-radius: 28px;
+            padding: 24px;
+            margin-top: 20px;
+            transition: 0.2s;
+        }
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            color: #5e4a33;
+            margin-top: 8px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            margin-top: 12px;
+        }
+
+        /* Contact form */
+        .contact-form {
+            background: #ffffffea;
+            border-radius: 36px;
+            padding: 32px;
+            margin-top: 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .contact-form input, .contact-form textarea {
+            padding: 14px 18px;
+            border: 1px solid #ffddb0;
+            border-radius: 48px;
+            font-family: inherit;
+            background: #fffcf5;
+        }
+        .contact-form button {
+            background: #f39c12;
+            border: none;
+            padding: 14px;
+            border-radius: 40px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .contact-form button:hover {
+            background: #e67e22;
+            transform: scale(0.97);
+        }
+        footer {
+            text-align: center;
+            padding: 32px;
+            background: #fff1e0;
+            color: #a5692e;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 880px) {
+            .hamburger {
+                display: block;
+            }
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 75px;
+                flex-direction: column;
+                background: #fffef5;
+                width: 75%;
+                height: calc(100vh - 75px);
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+                gap: 1.2rem;
+                padding: 40px 0;
+                backdrop-filter: blur(20px);
+                z-index: 999;
+            }
+            .nav-menu.active {
+                left: 0;
+            }
+            .nav-menu li a {
+                font-size: 1.2rem;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 60px 20px;
+            }
+        }
+        button, .hamburger {
+            background: none;
+        }
+        .faq-question i {
+            transition: transform 0.2s;
+        }
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            border-left: 6px solid #f39c12;
+            padding-left: 20px;
+            margin-bottom: 28px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="nav-container">
+        <div class="logo">
+            <h2>🥭 My Mango <span>| pure bliss</span></h2>
+        </div>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#varieties">Mango Varieties</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#delivery">Delivery Info</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+</div>
+
+<!-- WhatsApp Button -->
+<a href="https://wa.me/1234567890?text=Hello%20I%20want%20to%20order%20fresh%20mangoes!" class="whatsapp-float" target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<main>
+    <!-- Home Section -->
+    <section id="home">
+        <div class="hero">
+            <h1>Nature’s Golden Sweetness 🥭</h1>
+            <p>Farm-fresh, organic mangoes delivered to your doorstep. Taste the sunshine!</p>
+            <div style="margin-top: 30px;"><i class="fas fa-seedling" style="color:#f39c12;"></i> 100% Natural | <i class="fas fa-truck"></i> Fast Delivery</div>
+        </div>
+    </section>
+
+    <!-- Mango Varieties (image ready: you can replace src later) -->
+    <section id="varieties">
+        <h2 class="section-title">🍑 Exotic Mango Varieties</h2>
+        <div class="varieties-grid" id="varietiesGrid">
+            <!-- Variety cards - images placeholder (you can replace later) -->
+            <div class="mango-card"><img src="https://placehold.co/600x400/FFE5C8/CC8844?text=Alphonso" alt="Alphonso"><h3>Alphonso</h3><p>King of mangoes, rich creamy texture.</p></div>
+            <div class="mango-card"><img src="https://placehold.co/600x400/FEDBA0/BC6F25?text=Dasheri" alt="Dasheri"><h3>Dasheri</h3><p>Sweet & aromatic, fiberless flesh.</p></div>
+            <div class="mango-card"><img src="https://placehold.co/600x400/FFD966/A5581C?text=Kesar" alt="Kesar"><h3>Kesar</h3><p>Bright saffron colored, heavenly sweet.</p></div>
+            <div class="mango-card"><img src="https://placehold.co/600x400/F8E0B0/C2651A?text=Langra" alt="Langra"><h3>Langra</h3><p>Tangy & juicy, classic summer delight.</p></div>
+            <div class="mango-card"><img src="https://placehold.co/600x400/FCE6B4/D9822B?text=Himsagar" alt="Himsagar"><h3>Himsagar</h3><p>Soft pulp, exceptional sweetness.</p></div>
+            <div class="mango-card"><img src="https://placehold.co/600x400/FFE2AB/B85C1A?text=Totapuri" alt="Totapuri"><h3>Totapuri</h3><p>Perfect for pickles & chutneys.</p></div>
+        </div>
+        <p style="text-align:center; margin-top:24px; font-style:italic;"><i class="fas fa-upload"></i> You can replace any image later by changing the 'src' attribute in the code! 🎨</p>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery">
+        <h2 class="section-title">📸 Mango Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-img"><img src="https://placehold.co/600x400/FCE4B6/D97328?text=Mango+Orchard" alt="Orchard"></div>
+            <div class="gallery-img"><img src="https://placehold.co/600x400/FFDCA8/E67E22?text=Ripe+Mangoes" alt="Ripe"></div>
+            <div class="gallery-img"><img src="https://placehold.co/600x400/FFE0B5/CC6F2C?text=Mango+Platter" alt="Platter"></div>
+            <div class="gallery-img"><img src="https://placehold.co/600x400/F6D5A3/BD6520?text=Mango+Tree" alt="Tree"></div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">🌿 About My Mango</h2>
+        <div style="background: #FFF3E0; border-radius: 32px; padding: 32px;">
+            <p style="font-size:1.1rem; line-height:1.5">My Mango began with a passion for bringing the finest, chemical-free mangoes from family farms to your table. We handpick each fruit at peak ripeness, ensuring every bite is juicy, fragrant, and reminds you of sunny orchards. Our commitment to sustainable farming and farmer partnerships makes us your most trusted mango haven. Taste the tradition!</p>
+        </div>
+    </section>
+
+    <!-- Reviews + Customer Review Combined -->
+    <section id="reviews">
+        <h2 class="section-title">⭐ Customer Reviews & Ratings</h2>
+        <div class="reviews-container" id="reviewsContainer">
+            <div class="review-card"><i class="fas fa-user-circle"></i><div class="stars">★★★★★</div><p>"Best mangoes I've ever had! Super sweet and fresh. Delivery was quick!"</p><div class="customer-name">— Riya S.</div></div>
+            <div class="review-card"><i class="fas fa-user-circle"></i><div class="stars">★★★★☆</div><p>"Alphonso variety is pure gold. Will order again and again!"</p><div class="customer-name">— Vikram P.</div></div>
+            <div class="review-card"><i class="fas fa-user-circle"></i><div class="stars">★★★★★</div><p>"Amazing packaging and fruit quality. Even kids loved it."</p><div class="customer-name">— Meera K.</div></div>
+        </div>
+        <!-- Additional customer review section input (user friendly) -->
+        <div style="margin-top: 36px; background:#fff7ed; border-radius: 36px; padding: 20px;">
+            <h3>Share Your Mango Story 🥭</h3>
+            <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px;">
+                <input type="text" id="reviewName" placeholder="Your name" style="flex:1; padding:12px; border-radius:40px; border:1px solid #fcd48d;">
+                <textarea id="reviewText" rows="2" placeholder="Write your review..." style="flex:2; border-radius:28px; border:1px solid #fcd48d; padding:12px;"></textarea>
+                <div><select id="reviewStars" style="padding:12px; border-radius:40px;"><option value="5">★★★★★</option><option value="4">★★★★☆</option><option value="3">★★★☆☆</option></select></div>
+                <button id="submitReviewBtn" style="background:#f39c12; border:none; padding:0 26px; border-radius:40px; color:white; font-weight:bold; cursor:pointer;">+ Add Review</button>
+            </div>
+            <div id="newReviewContainer" style="margin-top: 20px; display:flex; flex-wrap:wrap; gap:15px;"></div>
+        </div>
+    </section>
+
+    <!-- Delivery Info -->
+    <section id="delivery">
+        <h2 class="section-title">🚚 Delivery Information</h2>
+        <div class="delivery-box">
+            <p><i class="fas fa-check-circle" style="color:#27ae60;"></i> Free delivery on orders over $40</p>
+            <p><i class="fas fa-clock"></i> Same-day dispatch for orders before 12 PM</p>
+            <p><i class="fas fa-map-marker-alt"></i> We deliver across all major cities – express mango shipping!</p>
+            <p><i class="fas fa-temperature-low"></i> Cold chain packaging to preserve freshness.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <h2 class="section-title">❓ Frequently Asked Questions</h2>
+        <div id="faqContainer">
+            <div class="faq-item"><div class="faq-question">How do you ensure mango freshness? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">We harvest at the right maturity and use temperature-controlled transit to deliver farm-fresh mangoes.</div></div>
+            <div class="faq-item"><div class="faq-question">Can I return mangoes? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">If any quality issues, we provide refund or replacement within 24 hrs of delivery.</div></div>
+            <div class="faq-item"><div class="faq-question">Do you ship nationwide? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes! We ship to all states with guaranteed 2-3 day delivery.</div></div>
+            <div class="faq-item"><div class="faq-question">Are these organic? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Most of our varieties are grown without synthetic pesticides — naturally delicious!</div></div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">📞 Contact Us</h2>
+        <div class="contact-form">
+            <input type="text" id="contactName" placeholder="Your Name">
+            <input type="email" id="contactEmail" placeholder="Email Address">
+            <textarea rows="3" id="contactMsg" placeholder="Ask about mangoes, delivery, or wholesale..."></textarea>
+            <button id="sendMsgBtn">Send Message <i class="fas fa-paper-plane"></i></button>
+        </div>
+        <div style="margin-top: 20px; text-align:center;"><i class="fas fa-phone-alt"></i> +1 800 MANGO-LUV &nbsp;|&nbsp; <i class="fas fa-envelope"></i> hello@mymango.com</div>
+    </section>
+</main>
+<footer>
+    <p>© 2025 My Mango — Sun-ripened happiness delivered. 🥭</p>
+</footer>
+
+<script>
+    // Intersection Observer for scroll animations
+    const sections = document.querySelectorAll('section');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+    sections.forEach(section => observer.observe(section));
+
+    // HAMBURGER MENU
+    const hamburger = document.getElementById('hamburgerBtn');
+    const navMenu = document.getElementById('navMenu');
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        // change icon
+        const icon = hamburger.querySelector('i');
+        if (navMenu.classList.contains('active')) {
+            icon.classList.remove('fa-bars');
+            icon.classList.add('fa-times');
+        } else {
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        }
+    });
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            const icon = hamburger.querySelector('i');
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-bars');
+        });
+    });
+
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const questionDiv = item.querySelector('.faq-question');
+        questionDiv.addEventListener('click', () => {
+            item.classList.toggle('active');
+        });
+    });
+
+    // Add new customer review dynamically
+    const submitReviewBtn = document.getElementById('submitReviewBtn');
+    const newReviewContainer = document.getElementById('newReviewContainer');
+    submitReviewBtn.addEventListener('click', () => {
+        const nameInput = document.getElementById('reviewName');
+        const reviewTextarea = document.getElementById('reviewText');
+        const starsSelect = document.getElementById('reviewStars');
+        let name = nameInput.value.trim();
+        const reviewMsg = reviewTextarea.value.trim();
+        let starRating = starsSelect.value;
+        if (!reviewMsg) {
+            alert("Please write your mango experience!");
+            return;
+        }
+        if (name === "") name = "Mango Lover";
+        let starDisplay = "";
+        if (starRating === "5") starDisplay = "★★★★★";
+        else if (starRating === "4") starDisplay = "★★★★☆";
+        else starDisplay = "★★★☆☆";
+        const newCard = document.createElement('div');
+        newCard.classList.add('review-card');
+        newCard.innerHTML = `<i class="fas fa-user-check"></i><div class="stars">${starDisplay}</div><p>"${escapeHtml(reviewMsg)}"</p><div class="customer-name">— ${escapeHtml(name)}</div>`;
+        newReviewContainer.prepend(newCard);
+        // clear inputs
+        nameInput.value = "";
+        reviewTextarea.value = "";
+        starsSelect.value = "5";
+        // optional smooth scroll to reviews
+        document.getElementById('reviews').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    // Contact form simulation
+    const sendBtn = document.getElementById('sendMsgBtn');
+    sendBtn.addEventListener('click', () => {
+        const nameC = document.getElementById('contactName').value;
+        const emailC = document.getElementById('contactEmail').value;
+        const msgC = document.getElementById('contactMsg').value;
+        if (!nameC || !emailC || !msgC) {
+            alert("Please fill all contact fields ☀️");
+            return;
+        }
+        alert(`Thanks ${nameC}! Our mango team will reply within 24 hours. Stay sweet! 🥭`);
+        document.getElementById('contactName').value = '';
+        document.getElementById('contactEmail').value = '';
+        document.getElementById('contactMsg').value = '';
+    });
+
+    // Helper to escape HTML
+    function escapeHtml(str) {
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // Manually trigger visible for sections already visible on load
+    window.addEventListener('load', () => {
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 100) {
+                section.classList.add('visible');
+            }
+        });
+    });
+</script>
+</body>
+</html>
